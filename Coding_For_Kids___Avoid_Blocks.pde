@@ -42,7 +42,7 @@ void draw(){
     }
   }
  else{
-   text("Score: "+(int)score,300, 100);
+   text("Score: "+(int)score,100, 100);
  }
 
   
