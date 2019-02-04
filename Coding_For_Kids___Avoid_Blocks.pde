@@ -4,15 +4,18 @@ int playerYCor = 590;
 int playerWidth = 55;
 int playerHeight = 55;
 int difficulty = 10;
+int limit = 10;
 float score = 0;
-Baddie[] baddies = new Baddie[10];
+Baddie[] baddies;
 boolean isCollided = false;
 
-void initBaddies(){
+
+void initBaddies(int xMin, int xMax, int yMin, int yMax, int num){
+  baddies = new Baddie[num];
  
   for(int i = 0; i < baddies.length; i++){
-     int x = (int)random(-10, 1280);
-     int y = (int)random(-50, 0);
+     int x = (int)random(xMin, xMax);
+     int y = (int)random(yMin, yMax);
      baddies[i] = new Baddie(x, y, 30, 15);
   }
 }
@@ -22,8 +25,8 @@ void setup(){
   size(1280,720);
   //rameRate(60);
   img = loadImage("bg.png");
-  initBaddies();
-  
+  initBaddies(-100, width + 20, -250, -80, difficulty);
+
   
 }
 
@@ -33,7 +36,10 @@ void draw(){
   drawPlayer();
   
   if(!isCollided){
-    moveBaddies(); 
+    moveBaddies();
+    if(score > limit && score < limit + 2){
+      initBaddies(-100, width + 20, -260, -80, difficulty); difficulty += 10; limit += 20;
+    }
   }
  else{
    text("Score: "+(int)score,300, 100);
@@ -92,92 +98,4 @@ void mouseDragged(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-// Drag (click and hold) your mouse across the 
-// image to change the value of the rectangle
-
-//int value = 0;
-//int xCor = 100;
-//int yCor = 100;
-//void setup(){
-//  size(500,400);
-//}
-
-//void draw() {
-//  background(150);
-//  drawPlayer();  
-//}
-
-//void drawPlayer(){
-//  rect(xCor, yCor, 10, 10);
-//}
-
-//void mouseDragged() 
-//{
-//  xCor = mouseX;
-//  yCor = mouseY;
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//color c = color(0);
-//float x = 0;
-//float y = 100;
-//float speed = 1;
-
-//void setup() {
-//  size(200,200);
-//}
-
-//void draw() {
-//  background(255);
-//  move();
-//  display();
-//}
-
-//void move() {
-//  x = x + speed;
-//  if (x > width) {
-//    x = 0;
-//  }
-//}
-
-//void display() {
-//  fill(c);
-//  rect(x,y,30,10);
-//}
+ 
